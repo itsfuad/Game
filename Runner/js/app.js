@@ -173,6 +173,19 @@ new input(player);
 
 let inc = 0;
 
+
+    bar.update();
+    bar.draw(ctx);
+    
+    bar2.update();
+    bar2.draw(ctx);
+   
+    
+    player.position.y += player.gravity;
+    player.update();
+    player.draw(ctx);
+    
+    
 const gameloop = () => {
     if(Paused){
        //alert("Game Over");
