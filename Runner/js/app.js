@@ -153,32 +153,38 @@ class input {
 
 
 
-const bar = new Obstacle(canvas);
+let bar = new Obstacle(canvas);
 bar.color = "black";
 bar.speed = {x: -2  , y: 0};
 
-const bar2 = new Obstacle(canvas);
+let bar2 = new Obstacle(canvas);
 bar2.color = "black";
 bar2.speed = {x: -2, y: 0};
 bar2.position.x = canvas.width / 2 + 20;
 
-const player = new Player(canvas);
-player.color = "slateblue";
+let player = new Player(canvas);
+player.color = "orangered";
 player.height = 10;
 player.width = 10;
-player.position.x = canvas.width / 6;
+player.position = {x: canvas.width / 6, y: canvas.height/3};
 player.speed = {x: 0, y: 0};
 
 new input(player);
 
 
-
 const gameloop = () => {
     if(Paused){
-        alert("Game Over");
+       //alert("Game Over");
+       document.getElementById('banner').innerText = "Game Over";
+       document.getElementById('sub').innerText = "Click play to play again";
         reset();
         return;
     }
+    document.getElementById('banner').innerText = "Tap to Fly";
+    document.getElementById('sub').innerText = "Avoid obstacles";
+   
+
+   document.getElementById('play').style.visibility = 'hidden';
     ctx.clearRect(0,0, canvas.width, canvas.height);
     
     bar.update();
@@ -206,24 +212,33 @@ const gameloop = () => {
 
 function reset(){
     Paused = false;
+    bar = new Obstacle(canvas);
     bar.color = "black";
     bar.speed = {x: -2  , y: 0};
-
+    
+    bar2 = new Obstacle(canvas);
     bar2.color = "black";
     bar2.speed = {x: -2, y: 0};
     bar2.position.x = canvas.width / 2 + 20;
 
-    player.color = "lime";
+    player = new Player(canvas);
+    player.color = "orangered";
     player.height = 10;
     player.width = 10;
-    player.position = {x:canvas.width / 6, y: 0};
-    player.speed = {x: 0, y: 0};
+    player.position = { x: canvas.width / 6, y: canvas.height / 3 };
+    player.speed = { x: 0, y: 0 };
+    new input(player);
     if (score > highscore){ 
         highscore = score;
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
     score = 0;
+   document.getElementById('play').innerText = "Play";
+   document.getElementById('play').style.visibility = 'visible';
    // gameloop();
 }
 
-gameloop();
+document.getElementById('play').addEventListener("click",()=>{
+  console.log("game started");
+  gameloop();
+});
