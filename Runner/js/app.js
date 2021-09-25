@@ -154,11 +154,11 @@ class input {
 
 
 let bar = new Obstacle(canvas);
-bar.color = "black";
+bar.color = "lightgreen";
 bar.speed = {x: -2  , y: 0};
 
 let bar2 = new Obstacle(canvas);
-bar2.color = "black";
+bar2.color = "lightgreen";
 bar2.speed = {x: -2, y: 0};
 bar2.position.x = canvas.width / 2 + 20;
 
@@ -171,6 +171,7 @@ player.speed = {x: 0, y: 0};
 
 new input(player);
 
+let inc = 0;
 
 const gameloop = () => {
     if(Paused){
@@ -187,14 +188,17 @@ const gameloop = () => {
    document.getElementById('play').style.visibility = 'hidden';
     ctx.clearRect(0,0, canvas.width, canvas.height);
     
+    
+    inc += 0.001;
     bar.update();
     bar.draw(ctx);
     bar.generate();
+    bar.speed = {x: -2-inc  , y: 0};
     
     bar2.update();
     bar2.draw(ctx);
     bar2.generate();
-    
+    bar2.speed = {x: -2-inc , y: 0};
     
     player.position.y += player.gravity;
     player.update();
@@ -212,12 +216,13 @@ const gameloop = () => {
 
 function reset(){
     Paused = false;
+    inc = 0;
     bar = new Obstacle(canvas);
-    bar.color = "black";
+    bar.color = "lightgreen";
     bar.speed = {x: -2  , y: 0};
     
     bar2 = new Obstacle(canvas);
-    bar2.color = "black";
+    bar2.color = "lightgreen";
     bar2.speed = {x: -2, y: 0};
     bar2.position.x = canvas.width / 2 + 20;
 
