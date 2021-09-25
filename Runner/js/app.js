@@ -5,7 +5,7 @@ const canvas = document.getElementById('canvas');
 canvas.style.width = 10000;
 canvas.style.height = 5000;
 
-let score = 0, highscore = parseInt(localStorage.getItem('itf_hgs'));
+let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
 
 const ctx = canvas.getContext("2d");
 ctx.font =  "10px Arial";
@@ -42,9 +42,9 @@ class Obj{
             y.innerText = this.position.y;
     }
     objectColision(target){
-        //console.log("Hello");
-        console.log(this.position.x);
-        console.log(target.position.x);
+        //////console.log("Hello");
+        ////console.log(this.position.x);
+        ////console.log(target.position.x);
         if((this.position.x) < (target.position.x + target.width)
         && (this.position.x+this.width) > target.position.x
         && (this.position.y) < (target.position.y + target.height)
@@ -57,13 +57,13 @@ class Obj{
         || this.position.x < 0)
         {   
             this.speed.x = -this.speed.x;
-            //console.log("Colision");
+            //////console.log("Colision");
             Paused = true;
         }
         if((this.position.y + this.height) > (canvas.height)
         || this.position.y < 0){
             this.speed.y = -this.speed.y;
-            //console.log("Colision");
+            //////console.log("Colision");
             Paused = true;
         }
     }
@@ -82,7 +82,7 @@ class Player extends Obj{
         clearInterval(upTimeId);
         lifted = 0;
         this.gravity = 0;
-        console.log("Jumped!");
+        ////console.log("Jumped!");
         upTimeId = setInterval(() => {
             this.position.y -= 5;
             lifted += 1;
@@ -98,13 +98,13 @@ class Player extends Obj{
         {
             this.speed.x = 0;
             Paused = true;
-            //console.log("Colision");
+            //////console.log("Colision");
         }
         if((this.position.y + this.height ) > (canvas.height)
         || this.position.y < 0){
             this.speed.y = 0;
             Paused = true;
-            //console.log("Colision");
+            //////console.log("Colision");
         }
     }
 }
@@ -123,9 +123,9 @@ class Obstacle extends Obj{
         if(this.position.x <= 0 
         && this.position.x + this.width <= 0){
             this.position.x = canvas.width + this.width;
-            console.log("Behind");
+            ////console.log("Behind");
             this.height = Math.floor(Math.random() * 50) + 20;
-            console.log(this.height);
+            //console.log(this.height);
             this.position.y = Math.floor(Math.random() * this.canvas.height/2) + 0;
         }
     }
@@ -139,7 +139,7 @@ class Obstacle extends Obj{
 class input {
     constructor(obj){
         document.addEventListener("click", evt =>{
-            console.log("User Tapped!");
+            //console.log("User Tapped!");
             obj.jump();
         });
         document.addEventListener("keydown", evt=>{
@@ -220,10 +220,10 @@ function reset(){
     player.speed = {x: 0, y: 0};
     if (score > highscore){ 
         highscore = score;
-        localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
+        window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
     score = 0;
-    gameloop();
+   // gameloop();
 }
 
 gameloop();
