@@ -166,7 +166,7 @@ let player = new Player(canvas);
 player.color = "orangered";
 player.height = 10;
 player.width = 10;
-player.position = {x: canvas.width / 6, y: canvas.height/3};
+player.position = {x: canvas.width / 6, y: canvas.height/2};
 player.speed = {x: 0, y: 0};
 
 new input(player);
@@ -225,7 +225,7 @@ function reset(){
     player.color = "orangered";
     player.height = 10;
     player.width = 10;
-    player.position = { x: canvas.width / 6, y: canvas.height / 3 };
+    player.position = { x: canvas.width / 6, y: canvas.height / 2 };
     player.speed = { x: 0, y: 0 };
     new input(player);
     if (score > highscore){ 
