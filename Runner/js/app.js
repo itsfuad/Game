@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas');
 
 canvas.width = 3000;
-canvas.height = 1500;
+canvas.height = 2000;
 
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
