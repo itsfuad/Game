@@ -7,6 +7,7 @@ canvas.height = 1500;
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
 let gravity = 20;
 let upforce = 40;
+let speed = 20;
 const ctx = canvas.getContext("2d");
 ctx.font =  "90px Arial";
 
@@ -21,6 +22,16 @@ let Paused = false;
 x.innerText = 0;
 y.innerText = 0;
 
+
+function media_f(){
+    let media = window.matchMedia("(orientation: portrait)")
+    if (media.matches){
+        speed = 40;
+        console.log("Media");
+    }
+}
+
+media_f();
 
 class Obj{
     constructor(canvas){
@@ -164,7 +175,7 @@ function initScene(){
     bar.maxHeight = 600;
     bar.width = 200;
     bar.position.x = 0;
-    bar.speed = {x: -20, y: 0};
+    bar.speed = {x: -speed, y: 0};
 
     bar2 = new Obstacle(canvas);
     bar2.color = "lightgreen";
@@ -172,7 +183,7 @@ function initScene(){
     bar2.maxHeight = 600;
     bar2.width = 200;
     bar2.position.x = canvas.width / 2 + bar2.width;
-    bar2.speed = {x: -20, y: 0};
+    bar2.speed = {x: -speed, y: 0};
 
     player = new Player(canvas);
     player.color = "orangered";
