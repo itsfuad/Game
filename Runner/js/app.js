@@ -28,7 +28,7 @@ function media_f(){
     let media = window.matchMedia("(orientation: portrait)")
     if (media.matches){
         speed *= 2;
-        gravity *= 3;
+        gravity *= 2.5;
         maxGravity = gravity;
         upforce *= 1.5;
         console.log("Media");
