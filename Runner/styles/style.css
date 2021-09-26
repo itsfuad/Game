@@ -11,7 +11,6 @@ body{
   grid-auto-flow: row;
   align-items: center;
   justify-items: center;
-  overflow: hidden;
   min-height: 100vh;
   background: whitesmoke;
 }
@@ -25,12 +24,14 @@ body{
 }
 #play{
   margin:5px;
-  
   color: black;
   padding: 5px;
   border-radius: 3px;
   border: none;
   font-size: 3rem;
+}
+#play:hover{
+  cursor: pointer;
 }
 footer{
   position: relative;
@@ -40,5 +41,10 @@ footer{
   margin: 15px;
   text-align: center;
   width: 100%;
+}
+@media (orientation: landscape) and (min-device-aspect-ratio: 1 / 1){
+  #canvas{
+    width: 50vw;
+  }
 }
 /*# sourceMappingURL=style.css.map */

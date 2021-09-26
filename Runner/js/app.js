@@ -1,14 +1,23 @@
 const canvas = document.getElementById('canvas');
 
+var med = window.matchMedia("(orientation: landscape) and (min-device-aspect-ratio: 1 / 1)");
+function media(){
+    if (med.matches) { // If media query matches
+        canvas.width = 3000;
+        canvas.height = 1500;
+    }else{
+        canvas.width = 2000;
+        canvas.height = 1000;
+    }
+}
 
-
-canvas.style.width = 10000;
-canvas.style.height = 5000;
+media();
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
-
+let gravity = 20;
+let upforce = 30;
 const ctx = canvas.getContext("2d");
-ctx.font =  "10px Arial";
+ctx.font =  "90px Arial";
 
 const x = document.getElementById('x');
 const y = document.getElementById('y');
@@ -26,10 +35,10 @@ class Obj{
     constructor(canvas){
         this.canvas = canvas;
         this.color = "yellow";
-        this.height = 20;
-        this.width = 20;
+        this.height = 0;
+        this.width = 0;
         this.position = {x: 0, y: 0};
-        this.speed = {x: 2, y: 0};
+        this.speed = {x: 0, y: 0};
     }
     draw(ctx){
         ctx.fillStyle = this.color;
@@ -76,7 +85,7 @@ class Obj{
 class Player extends Obj{
     constructor(canvas){
         super(canvas);
-        this.gravity = 2;
+        this.gravity = gravity;
     }
     jump(){
         clearInterval(upTimeId);
@@ -84,11 +93,11 @@ class Player extends Obj{
         this.gravity = 0;
         ////console.log("Jumped!");
         upTimeId = setInterval(() => {
-            this.position.y -= 5;
+            this.position.y -= upforce;
             lifted += 1;
             if (lifted >= 5){
                 clearInterval(upTimeId);
-                this.gravity = 2;
+                this.gravity = gravity;
             }
         }, 30);
     }
@@ -118,13 +127,16 @@ class Obstacle extends Obj{
     constructor(canvas){
         super(canvas);
         this.canvas = canvas;
+        this.minHeight = 0;
+        this.maxHeight = 0;
+        this.width = 0;
     }
     generate(){
         if(this.position.x <= 0 
         && this.position.x + this.width <= 0){
             this.position.x = canvas.width + this.width;
             ////console.log("Behind");
-            this.height = Math.floor(Math.random() * 50) + 20;
+            this.height = Math.floor(Math.random() * this.maxHeight) + this.minHeight;
             //console.log(this.height);
             this.position.y = Math.floor(Math.random() * this.canvas.height/2) + 0;
         }
@@ -151,28 +163,32 @@ class input {
 }
 
 
+let bar, bar2, player;
 
+function initScene(){
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    bar = new Obstacle(canvas);
+    bar.color = "lightgreen";
+    bar.minHeight = 200;
+    bar.maxHeight = 600;
+    bar.width = 200;
+    bar.position.x = 0;
+    bar.speed = {x: -20, y: 0};
 
-let bar = new Obstacle(canvas);
-bar.color = "lightgreen";
-bar.speed = {x: -2  , y: 0};
+    bar2 = new Obstacle(canvas);
+    bar2.color = "lightgreen";
+    bar2.minHeight = 200;
+    bar2.maxHeight = 600;
+    bar2.width = 200;
+    bar2.position.x = canvas.width / 2 + bar2.width;
+    bar2.speed = {x: -20, y: 0};
 
-let bar2 = new Obstacle(canvas);
-bar2.color = "lightgreen";
-bar2.speed = {x: -2, y: 0};
-bar2.position.x = canvas.width / 2 + 20;
-
-let player = new Player(canvas);
-player.color = "orangered";
-player.height = 10;
-player.width = 10;
-player.position = {x: canvas.width / 6, y: canvas.height/2};
-player.speed = {x: 0, y: 0};
-
-new input(player);
-
-let inc = 0;
-
+    player = new Player(canvas);
+    player.color = "orangered";
+    player.height = 100;
+    player.width = 100;
+    player.position = {x: canvas.width / 6, y: canvas.height/2};
+    player.speed = {x: 0, y: 0};
 
     bar.update();
     bar.draw(ctx);
@@ -180,12 +196,14 @@ let inc = 0;
     bar2.update();
     bar2.draw(ctx);
    
-    
     player.position.y += player.gravity;
     player.update();
     player.draw(ctx);
-    
-    
+    new input(player);
+}
+
+let inc = 0;
+
 const gameloop = () => {
     if(Paused){
        //alert("Game Over");
@@ -202,16 +220,16 @@ const gameloop = () => {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     
     
-    inc += 0.001;
+    inc += 0.00001;
     bar.update();
     bar.draw(ctx);
     bar.generate();
-    bar.speed = {x: -2-inc  , y: 0};
+    bar.speed.x -= score/10000;
     
     bar2.update();
     bar2.draw(ctx);
     bar2.generate();
-    bar2.speed = {x: -2-inc , y: 0};
+    bar2.speed.x -= score/10000;
     
     player.position.y += player.gravity;
     player.update();
@@ -222,37 +240,22 @@ const gameloop = () => {
     
     score += 0.05;
     ctx.fillStyle = "black";
-    ctx.fillText("Score: "+Math.floor(score).toString(), 10, 10);
-    ctx.fillText("High Score: "+highscore, 10, 20);
+    ctx.fillText("Score: "+Math.floor(score).toString(), 10, 100);
+    ctx.fillText("High Score: "+Math.floor(highscore), 10, 200);
     requestAnimationFrame(gameloop);
 }
 
 function reset(){
     Paused = false;
     inc = 0;
-    bar = new Obstacle(canvas);
-    bar.color = "lightgreen";
-    bar.speed = {x: -2  , y: 0};
-    
-    bar2 = new Obstacle(canvas);
-    bar2.color = "lightgreen";
-    bar2.speed = {x: -2, y: 0};
-    bar2.position.x = canvas.width / 2 + 20;
-
-    player = new Player(canvas);
-    player.color = "orangered";
-    player.height = 10;
-    player.width = 10;
-    player.position = { x: canvas.width / 6, y: canvas.height / 2 };
-    player.speed = { x: 0, y: 0 };
-    new input(player);
+    initScene();
     if (score > highscore){ 
         highscore = score;
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
     score = 0;
-   document.getElementById('play').innerText = "Play";
-   document.getElementById('play').style.visibility = 'visible';
+    document.getElementById('play').innerText = "Play";
+    document.getElementById('play').style.visibility = 'visible';
    // gameloop();
 }
 
@@ -260,3 +263,5 @@ document.getElementById('play').addEventListener("click",()=>{
   console.log("game started");
   gameloop();
 });
+
+initScene();
