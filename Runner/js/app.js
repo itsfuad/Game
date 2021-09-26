@@ -28,7 +28,8 @@ function media_f(){
     let media = window.matchMedia("(orientation: portrait)")
     if (media.matches){
         speed *= 2;
-        gravity *= 2;
+        gravity *= 3;
+        maxGravity = gravity;
         upforce *= 1.5;
         console.log("Media");
     }
@@ -54,7 +55,6 @@ class Obj{
         this.position.y += this.speed.y;
         x.innerText = this.position.x;
         y.innerText = this.position.y;
-        gravity += 0.1;
     }
     objectColision(target){
         //////console.log("Hello");
@@ -92,6 +92,12 @@ class Player extends Obj{
     constructor(canvas){
         super(canvas);
         this.gravity = gravity;
+    }
+    update(){
+        this.position.x += this.speed.x;
+        this.position.y += this.speed.y;
+        x.innerText = this.position.x;
+        y.innerText = this.position.y;
     }
     jump(){
         clearInterval(upTimeId);
@@ -232,6 +238,7 @@ const gameloop = () => {
     bar2.speed.x -= score/10000;
     
     player.position.y += player.gravity;
+
     player.update();
     player.draw(ctx);
     player.colision();
