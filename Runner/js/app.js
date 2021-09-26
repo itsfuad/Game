@@ -15,7 +15,7 @@ media();
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
 let gravity = 20;
-let upforce = 30;
+let upforce = 40;
 const ctx = canvas.getContext("2d");
 ctx.font =  "90px Arial";
 
@@ -202,8 +202,6 @@ function initScene(){
     new input(player);
 }
 
-let inc = 0;
-
 const gameloop = () => {
     if(Paused){
        //alert("Game Over");
@@ -219,8 +217,6 @@ const gameloop = () => {
    document.getElementById('play').style.visibility = 'hidden';
     ctx.clearRect(0,0, canvas.width, canvas.height);
     
-    
-    inc += 0.00001;
     bar.update();
     bar.draw(ctx);
     bar.generate();
@@ -247,7 +243,6 @@ const gameloop = () => {
 
 function reset(){
     Paused = false;
-    inc = 0;
     initScene();
     if (score > highscore){ 
         highscore = score;
