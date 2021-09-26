@@ -26,7 +26,9 @@ y.innerText = 0;
 function media_f(){
     let media = window.matchMedia("(orientation: portrait)")
     if (media.matches){
-        speed = 40;
+        speed *= 2;
+        gravity *= 2;
+        upforce *= 2;
         console.log("Media");
     }
 }
