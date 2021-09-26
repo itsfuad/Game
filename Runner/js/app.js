@@ -148,7 +148,7 @@ class Obstacle extends Obj{
             ////console.log("Behind");
             this.height = Math.floor(Math.random() * this.maxHeight) + this.minHeight;
             //console.log(this.height);
-            this.position.y = Math.floor(Math.random() * this.canvas.height/2) + 0;
+            this.position.y = Math.floor(Math.random() * this.canvas.height);
         }
     }
 }
@@ -180,7 +180,7 @@ function initScene(){
     bar = new Obstacle(canvas);
     bar.color = "lightgreen";
     bar.minHeight = 200;
-    bar.maxHeight = 600;
+    bar.maxHeight = 800;
     bar.width = 200;
     bar.position.x = 0;
     bar.speed = {x: -speed, y: 0};
@@ -188,7 +188,7 @@ function initScene(){
     bar2 = new Obstacle(canvas);
     bar2.color = "lightgreen";
     bar2.minHeight = 200;
-    bar2.maxHeight = 600;
+    bar2.maxHeight = 800;
     bar2.width = 200;
     bar2.position.x = canvas.width / 2 + bar2.width;
     bar2.speed = {x: -speed, y: 0};
