@@ -1,17 +1,8 @@
 const canvas = document.getElementById('canvas');
 
-var med = window.matchMedia("(orientation: landscape) and (min-device-aspect-ratio: 1 / 1)");
-function media(){
-    if (med.matches) { // If media query matches
-        canvas.width = 3000;
-        canvas.height = 1500;
-    }else{
-        canvas.width = 2000;
-        canvas.height = 1000;
-    }
-}
+canvas.width = 3000;
+canvas.height = 1500;
 
-media();
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
 let gravity = 20;

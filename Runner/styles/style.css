@@ -11,7 +11,8 @@ body{
   grid-auto-flow: row;
   align-items: center;
   justify-items: center;
-  min-height: 100vh;
+  min-height: 95vh;
+  max-height: 95vh;
   background: whitesmoke;
 }
 #banner{
