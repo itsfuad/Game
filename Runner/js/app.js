@@ -6,6 +6,7 @@ canvas.height = 2000;
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
 let gravity = 20;
+let maxGravity = 20;
 let upforce = 40;
 let speed = 20;
 const ctx = canvas.getContext("2d");
@@ -49,10 +50,11 @@ class Obj{
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
     update(){
-            this.position.x += this.speed.x;
-            this.position.y += this.speed.y;
-            x.innerText = this.position.x;
-            y.innerText = this.position.y;
+        this.position.x += this.speed.x;
+        this.position.y += this.speed.y;
+        x.innerText = this.position.x;
+        y.innerText = this.position.y;
+        gravity += 0.1;
     }
     objectColision(target){
         //////console.log("Hello");
@@ -94,6 +96,7 @@ class Player extends Obj{
     jump(){
         clearInterval(upTimeId);
         lifted = 0;
+        gravity = maxGravity;
         this.gravity = 0;
         ////console.log("Jumped!");
         upTimeId = setInterval(() => {
@@ -121,9 +124,6 @@ class Player extends Obj{
         }
     }
 }
-
-
-
 
 
 
@@ -253,6 +253,7 @@ function reset(){
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
     score = 0;
+    gravity = maxGravity;
     document.getElementById('play').innerText = "Play";
     document.getElementById('play').style.visibility = 'visible';
    // gameloop();
