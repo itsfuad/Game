@@ -15,6 +15,10 @@ let deltatime, currentTime, lastTime = Date.now();
 let gravity = 3;
 let levels = 1;
 
+let jumpSound = new Audio("src/jump.wav");
+let levelUpsound = new Audio("src/levelup.wav");
+//let bgsound = new Audio("src/bg.wav");
+
 class object {
     constructor(canvas){
         this.canvas = canvas;
@@ -81,6 +85,7 @@ class Bar extends object{
         //console.log(pos);
         if(this.position.x+this.w <= 0){
             score += 1;
+            levelUpsound.play();
             levels = score + 1;
             this.h = Math.floor(Math.random()* canvas.width) + 50;
             this.position.x = this.canvas.width;
@@ -119,6 +124,7 @@ document.addEventListener("keydown", async () => {
     await sleep(120);
     jump = false;
     //console.log("Normal");
+    jumpSound.play();
 });
 document.addEventListener("click", async () => {
     //console.log("Jumped");
@@ -126,6 +132,7 @@ document.addEventListener("click", async () => {
     await sleep(120);
     jump = false;
     //console.log("Normal");
+    jumpSound.play();
 });
 
 let bird = new object(canvas);
