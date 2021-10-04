@@ -5,4 +5,10 @@ body{
     width: 100%;
     justify-content: center;
     align-items: center;
+    background: #11131E;
+}
+#canvas{
+    background: #232E3C;
+    background-size: cover;
+    border-radius: 10px;
 }

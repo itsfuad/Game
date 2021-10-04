@@ -5,7 +5,7 @@ canvas.height = 2000;
 
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
-let gravity = 20;
+let gravity = 15;
 let maxGravity = 20;
 let upforce = 40;
 let speed = 20;
@@ -149,6 +149,7 @@ class Obstacle extends Obj{
             this.height = Math.floor(Math.random() * this.maxHeight) + this.minHeight;
             //console.log(this.height);
             this.position.y = Math.floor(Math.random() * this.canvas.height);
+            score += 1;
         }
     }
 }
@@ -212,7 +213,12 @@ function initScene(){
     new input(player);
 }
 
+let deltatime, currentTime = 1, lastTime = 0;
+
 const gameloop = () => {
+    currentTime = Date.now();
+    deltatime = currentTime - lastTime;
+    lastTime = currentTime;
     if(Paused){
        //alert("Game Over");
        document.getElementById('banner').innerText = "Game Over";
@@ -245,7 +251,7 @@ const gameloop = () => {
     player.objectColision(bar);
     player.objectColision(bar2);  
     
-    score += 0.05;
+    
     ctx.fillStyle = "black";
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 100);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 200);

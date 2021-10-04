@@ -1,7 +1,6 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.style.background = "black";
 ctx.font =  "16px Arial";
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
@@ -17,7 +16,7 @@ let levels = 1;
 
 let jumpSound = new Audio("src/jump.wav");
 let levelUpsound = new Audio("src/levelup.wav");
-//let bgsound = new Audio("src/bg.wav");
+let bgsound = new Audio("src/bg.wav");
 
 class object {
     constructor(canvas){
@@ -84,14 +83,13 @@ class Bar extends object{
     generate(){
         //console.log(pos);
         if(this.position.x+this.w <= 0){
-            score += 1;
-            levelUpsound.play();
-            levels = score + 1;
+            //levelUpsound.play();
+            levels++;
             this.h = Math.floor(Math.random()* canvas.width) + 50;
             this.position.x = this.canvas.width;
             this.position.y = 0;
-            this.h2 = canvas.height - (this.h + 150);
-            this.position.y2 = this.h + 150;
+            this.h2 = canvas.height - (this.h + 200);
+            this.position.y2 = this.h + 200;
             this.position.x2 = this.canvas.width;
         }
     }
@@ -124,7 +122,7 @@ document.addEventListener("keydown", async () => {
     await sleep(120);
     jump = false;
     //console.log("Normal");
-    jumpSound.play();
+   // jumpSound.play();
 });
 document.addEventListener("click", async () => {
     //console.log("Jumped");
@@ -132,7 +130,7 @@ document.addEventListener("click", async () => {
     await sleep(120);
     jump = false;
     //console.log("Normal");
-    jumpSound.play();
+   // jumpSound.play();
 });
 
 let bird = new object(canvas);
@@ -151,8 +149,8 @@ bar.position.x2 = canvas.width;
 bar.speed.x2 = 3;
 bar.color2 = "white";
 
-bar.h2 = canvas.height - (bar.h + 150);
-bar.position.y2 = bar.position.y + bar.h + 150;
+bar.h2 = canvas.height - (bar.h + 200);
+bar.position.y2 = bar.position.y + bar.h + 200;
 bar.position.x2 = canvas.width;
 
 
@@ -173,7 +171,9 @@ const gameLoop = () => {
     ctx.fillStyle = "white";
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 20);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 40);
-
+    score += 0.015;
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);
+
+//bgsound.play();
