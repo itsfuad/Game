@@ -118,7 +118,7 @@ function sleep(ms) {
 }
 
 const gameOver = () => {
-    console.log("GameOver");
+    //console.log("GameOver");
     if (score > highscore){ 
         highscore = score;
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
@@ -128,14 +128,17 @@ const gameOver = () => {
     isGameOver = true;
     
     document.getElementById('gameovermsg').classList.add('on');
-    
+
 }
 
-document.addEventListener("keydown", async () => {
+document.addEventListener("keydown", async (e) => {
     //console.log("Jumped");
     jump = true;
     await sleep(120);
     jump = false;
+    if (isGameOver == true && e.key == 'Enter'){
+        play();
+    }
     //console.log("Normal");
    // jumpSound.play();
 });
