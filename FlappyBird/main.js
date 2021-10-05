@@ -155,7 +155,7 @@ isGameOver = false;
 
 bird.color = "white";
 bird.position.x = 40;
-
+bird.position.y = 20;
 bird.h = 20;
 bird.w = 20;
 
