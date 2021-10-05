@@ -180,12 +180,12 @@ function initScene(){
     bar.h = 200;
     bar.position.x = canvas.width;
     bar.speed.x = 3;
-    bar.color = "white";
+    bar.color = "lime";
 
     bar.h2 = 200;
     bar.position.x2 = canvas.width;
     bar.speed.x2 = 3;
-    bar.color2 = "white";
+    bar.color2 = "lime";
 
     bar.h2 = canvas.height - (bar.h + 200);
     bar.position.y2 = bar.position.y + bar.h + 200;
@@ -194,13 +194,32 @@ function initScene(){
 
 }
 
+const cloud = new Image();
+cloud.src = 'src/cloud-small.png';
+const cloud2 = new Image();
+cloud2.src = 'src/cloud-small-small.png';
+
+let cx1 = canvas.width, cy1 = 0, cx2 = 0, cy2 = 0; 
+const createCloud = () => {
+    if (cx1 <= -cloud.width) {
+        cx1 = canvas.width
+        cy1 = Math.floor(Math.random()*canvas.height/2)+20;
+    }
+    if (cx2 <= -cloud.width) {
+        cx2 = canvas.width
+        cy2 = Math.floor(Math.random()*canvas.height/2)+20;
+    }
+    ctx.drawImage(cloud, cx1 -= 0.5, cy1);
+    ctx.drawImage(cloud2, cx2 -= 0.9, cy2);
+}
+
 const gameLoop = () => {
     if (isGameOver) return;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     currentTime = Date.now();
     deltatime = currentTime - lastTime;
     lastTime = currentTime;
-    
+    createCloud();
     bar.generate();
     bar.update(deltatime);
     bar.draw(ctx);
