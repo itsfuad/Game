@@ -40,6 +40,10 @@ document.addEventListener("keydown", function(evt){
 
 });
 
+document.addEventListener('mousemove', (evt)=>{
+    console.log(evt);
+});
+
 function getDistance(pointX1, pointY1, pointX2, pointY2) {
     let distanceX = pointX2 - pointX1;
     let distanceY = pointY2 - pointY1;
