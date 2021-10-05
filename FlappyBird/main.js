@@ -140,7 +140,8 @@ document.addEventListener("keydown", async (e) => {
         play();
     }
     else if(e.key == 'p' || e.key == 'P'){
-        paused = !paused;
+          paused = !paused;
+          pausebtn.innerText = pausebtn.innerText == 'Pause' ? 'Resume' : 'Pause';
     }
     //console.log("Normal");
    // jumpSound.play();
