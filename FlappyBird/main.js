@@ -8,8 +8,8 @@ const Bird = new Image();
 Bird.src = "src/red.png";
 
 let isGameOver = false;
-
 let jump = false;
+let paused = false;
 let deltatime, currentTime, lastTime = Date.now();
 let gravity = 3;
 let levels = 1;
@@ -28,15 +28,17 @@ class object {
         this.speed = {x: 0, y: 0, x2: 0, y2: 0};
     }
     update(deltatime){
-        deltatime = deltatime/10;
-        if(jump == false){//console.log(deltatime);
-            this.speed.y = gravity;
+        if (!paused){
+            deltatime = deltatime / 10;
+            if (jump == false) { //console.log(deltatime);
+                this.speed.y = gravity;
+            }
+            else {
+                this.speed.y = -gravity * 1.7;
+            }
+            this.position.y += this.speed.y * deltatime;
+            this.position.x += this.speed.x * deltatime;
         }
-        else{
-            this.speed.y = -gravity*1.7;    
-        }
-        this.position.y += this.speed.y * deltatime;
-        this.position.x += this.speed.x * deltatime;
     }
     draw(ctx){
         ctx.fillStyle = this.color;
@@ -47,6 +49,7 @@ class object {
             || this.position.y <= 0){
             //console.log("colision");
             this.position.y = canvas.height - this.h;
+           // alert('colision');
             gameOver();
         }
     }
@@ -58,12 +61,15 @@ class object {
         && (this.position.x+this.w) > target.position.x
         && (this.position.y) < (target.position.y + target.h)
         && (this.position.y+this.h) > target.position.y){
+            
+           // alert('objcoli1');
             gameOver();
         }
         if((this.position.x) < (target.position.x2 + target.w2)
         && (this.position.x+this.w) > target.position.x2
         && (this.position.y) < (target.position.y2 + target.h2)
         && (this.position.y+this.h) > target.position.y2){
+         //  alert('objcoli2');
             gameOver();
         }
     }
@@ -77,8 +83,13 @@ class Bar extends object{
         this.color2 = 'yellow'; 
     }
     update(){
-        this.position.x -= this.speed.x + levels/100;
-        this.position.x2 -= this.speed.x2 + levels/100;
+        if(!paused){
+            
+            score += 0.015;
+            
+            this.position.x -= this.speed.x + levels / 100;
+            this.position.x2 -= this.speed.x2 + levels / 100;
+        }
     }
     generate(){
         //console.log(pos);
@@ -111,9 +122,11 @@ const gameOver = () => {
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
     score = 0;
-    alert("Game Over");
+   // alert('h');
     isGameOver = true;
-    location.reload();
+    
+    document.getElementById('gameovermsg').classList.add('on');
+    
 }
 
 document.addEventListener("keydown", async () => {
@@ -133,12 +146,19 @@ document.addEventListener("click", async () => {
    // jumpSound.play();
 });
 
-let bird = new object(canvas);
+let bird, bar;
+bird = new object(canvas);
+bar = new Bar(canvas);
+
+function initScene(){
+isGameOver = false;
+
 bird.color = "white";
 bird.position.x = 40;
+
 bird.h = 20;
 bird.w = 20;
-let bar = new Bar(canvas);
+
 bar.h = 200;
 bar.position.x = canvas.width;
 bar.speed.x = 3;
@@ -153,6 +173,7 @@ bar.h2 = canvas.height - (bar.h + 200);
 bar.position.y2 = bar.position.y + bar.h + 200;
 bar.position.x2 = canvas.width;
 
+}
 
 const gameLoop = () => {
     if (isGameOver) return;
@@ -171,9 +192,25 @@ const gameLoop = () => {
     ctx.fillStyle = "white";
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 20);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 40);
-    score += 0.015;
+    
     requestAnimationFrame(gameLoop);
 }
-requestAnimationFrame(gameLoop);
 
+
+
+const pausebtn = document.getElementsByClassName('pause')[0];
+
+pausebtn.addEventListener('click',()=>{
+    paused = !paused;
+    pausebtn.innerText = pausebtn.innerText == 'Pause'? 'Resume':'Pause';
+});
 //bgsound.play();
+
+const playbtn = document.getElementById('play');
+
+const play = ()=>{
+    initScene();
+    gameLoop();
+    playbtn.style.display = 'none';
+    document.getElementById('gameovermsg').classList.remove('on');
+}

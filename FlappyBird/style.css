@@ -5,10 +5,48 @@ body{
     width: 100%;
     justify-content: center;
     align-items: center;
-    background: #11131E;
+    background: #232E3C;
 }
 #canvas{
     background: #232E3C;
     background-size: cover;
     border-radius: 10px;
+    border: 2px solid white;
+}
+.pause{
+    position: fixed;
+    color: white;
+    font-size: 20px;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+#play{
+    font-size: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+#gameovermsg{
+    display: none;
+    text-shadow: 0 0 15px #232E3C;
+}
+#gameovermsg.on{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    background: rgba(255,255,255,0.3);
+}
+#gameovermsg .msg{
+    font-size: 50px;
+ 
 }
