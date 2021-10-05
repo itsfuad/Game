@@ -182,15 +182,17 @@ const gameLoop = () => {
     currentTime = Date.now();
     deltatime = currentTime - lastTime;
     lastTime = currentTime;
-    bird.update(deltatime);
-    bird.draw(ctx);
-    bird.colision();
-    bird.objectColision(bar);
+    
     bar.generate();
     bar.update(deltatime);
     bar.draw(ctx);
 
-    ctx.fillStyle = "white";
+    bird.update(deltatime);
+    bird.draw(ctx);
+    bird.colision();
+    bird.objectColision(bar);
+    
+    ctx.fillStyle = "orangered";
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 20);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 40);
     
