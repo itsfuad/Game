@@ -209,8 +209,13 @@ const createCloud = () => {
         cx2 = canvas.width
         cy2 = Math.floor(Math.random()*canvas.height/2)+20;
     }
-    ctx.drawImage(cloud, cx1 -= 0.5, cy1);
-    ctx.drawImage(cloud2, cx2 -= 0.9, cy2);
+    if (!paused){
+        cx1 -= 0.5;
+        cx2 -= 0.9;
+    }
+  
+    ctx.drawImage(cloud, cx1, cy1);
+    ctx.drawImage(cloud2, cx2, cy2);
 }
 
 const gameLoop = () => {
