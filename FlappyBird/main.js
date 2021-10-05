@@ -44,6 +44,14 @@ class object {
     draw(ctx){
         ctx.fillStyle = this.color;
         ctx.fillRect(this.position.x, this.position.y, this.w, this.h);
+          ctx.fillStyle = '#1b1b1b';
+          
+        ctx.fillRect(this.position.x + 15, this.position.y + 5, this.w/10, this.h/10);
+         ctx.fillRect(this.position.x + 20, this.position.y + 5, this.w/6, this.h/8);
+         ctx.fillStyle = 'white';
+         ctx.fillRect(this.position.x - 5, this.position.y + 15, this.w/5, this.h/5);
+         ctx.fillStyle = '#AAFFAE';
+          ctx.fillRect(this.position.x + 2, this.position.y + 10, this.w/2, this.h/2);
     }
     colision(){
         if(this.position.y + this.h >= canvas.height
@@ -59,7 +67,7 @@ class object {
         ////console.log(this.position.x);
         ////console.log(target.position.x);
         if((this.position.x) < (target.position.x + target.w)
-        && (this.position.x+this.w) > target.position.x
+        && (this.position.x+this.w + 6) > target.position.x
         && (this.position.y) < (target.position.y + target.h)
         && (this.position.y+this.h) > target.position.y){
             
