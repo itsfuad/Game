@@ -139,6 +139,9 @@ document.addEventListener("keydown", async (e) => {
     if (isGameOver == true && e.key == 'Enter'){
         play();
     }
+    else if(e.key == 'p' || e.key == 'P'){
+        paused = !paused;
+    }
     //console.log("Normal");
    // jumpSound.play();
 });
