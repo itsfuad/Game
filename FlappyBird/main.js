@@ -28,6 +28,7 @@ class object {
         this.speed = {x: 0, y: 0, x2: 0, y2: 0};
     }
     update(deltatime){
+        //console.log("Update");
         if (!paused){
             deltatime = deltatime / 10;
             if (jump == false) { //console.log(deltatime);
@@ -117,6 +118,7 @@ function sleep(ms) {
 }
 
 const gameOver = () => {
+    console.log("GameOver");
     if (score > highscore){ 
         highscore = score;
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
@@ -151,27 +153,29 @@ bird = new object(canvas);
 bar = new Bar(canvas);
 
 function initScene(){
-isGameOver = false;
-score = 0;
-bird.color = "white";
-bird.position.x = 40;
-bird.position.y = 20;
-bird.h = 20;
-bird.w = 20;
+    //console.log("Init");
+    isGameOver = false;
+    score = 0;
+    bird.color = "white";
+    bird.position.x = 40;
+    bird.position.y = 200;
+    bird.h = 20;
+    bird.w = 20;
 
-bar.h = 200;
-bar.position.x = canvas.width;
-bar.speed.x = 3;
-bar.color = "white";
+    bar.h = 200;
+    bar.position.x = canvas.width;
+    bar.speed.x = 3;
+    bar.color = "white";
 
-bar.h2 = 200;
-bar.position.x2 = canvas.width;
-bar.speed.x2 = 3;
-bar.color2 = "white";
+    bar.h2 = 200;
+    bar.position.x2 = canvas.width;
+    bar.speed.x2 = 3;
+    bar.color2 = "white";
 
-bar.h2 = canvas.height - (bar.h + 200);
-bar.position.y2 = bar.position.y + bar.h + 200;
-bar.position.x2 = canvas.width;
+    bar.h2 = canvas.height - (bar.h + 200);
+    bar.position.y2 = bar.position.y + bar.h + 200;
+    bar.position.x2 = canvas.width;
+    lastTime = Date.now();
 
 }
 
@@ -191,14 +195,12 @@ const gameLoop = () => {
     bird.colision();
     bird.objectColision(bar);
     
-    ctx.fillStyle = "orangered";
+    ctx.fillStyle = "black";
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 20);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 40);
-    
+    //console.log("GameLoop");
     requestAnimationFrame(gameLoop);
 }
-
-
 
 const pausebtn = document.getElementsByClassName('pause')[0];
 
@@ -211,8 +213,10 @@ pausebtn.addEventListener('click',()=>{
 const playbtn = document.getElementById('play');
 
 const play = ()=>{
+    //console.log("Play");
     initScene();
     gameLoop();
     playbtn.style.display = 'none';
     document.getElementById('gameovermsg').classList.remove('on');
 }
+

@@ -9,7 +9,7 @@ body{
     color: white;
 }
 #canvas{
-    background: #232E3C;
+    background: #556170;
     background-size: cover;
     border-radius: 10px;
     border: 2px solid white;
@@ -24,6 +24,9 @@ body{
     border: 2px solid white;
     border-radius: 10px;
 }
+.pause:hover{
+    cursor: pointer;
+}
 #play{
     font-size: 50px;
     position: fixed;
@@ -32,9 +35,11 @@ body{
     justify-content: center;
     color: white;
 }
+#play:hover{
+    cursor: pointer;
+}
 #gameovermsg{
     display: none;
-    text-shadow: 0 0 15px #232E3C;
 }
 #gameovermsg.on{
     position: fixed;
@@ -44,13 +49,19 @@ body{
     align-items: center;
     padding: 20px;
     border-radius: 10px;
-    color: white;
-    background: rgba(255,255,255,0.3);
+    color: rgb(0, 0, 0);
+    background: rgba(255,255,255,0.8);
 }
 #gameovermsg .msg{
     font-size: 50px;
- 
 }
+#gameovermsg .msg:hover{
+    cursor: default;
+}
+#gameovermsg .reload:hover{
+    cursor: pointer;
+}
+
 footer{
     position: fixed;
     bottom: 10px;
