@@ -121,7 +121,6 @@ const gameOver = () => {
         highscore = score;
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
-    score = 0;
     levels = 1;
    // alert('h');
     isGameOver = true;
@@ -153,7 +152,7 @@ bar = new Bar(canvas);
 
 function initScene(){
 isGameOver = false;
-
+score = 0;
 bird.color = "white";
 bird.position.x = 40;
 bird.position.y = 20;
