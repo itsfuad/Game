@@ -87,8 +87,8 @@ class Bar extends object{
             
             score += 0.015;
             
-            this.position.x -= this.speed.x + levels / 100;
-            this.position.x2 -= this.speed.x2 + levels / 100;
+            this.position.x -= this.speed.x + levels / 30;
+            this.position.x2 -= this.speed.x2 + levels / 30;
         }
     }
     generate(){
@@ -122,6 +122,7 @@ const gameOver = () => {
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
     score = 0;
+    levels = 1;
    // alert('h');
     isGameOver = true;
     
