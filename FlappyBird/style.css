@@ -1,11 +1,13 @@
 body{
     position: fixed;
     display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100%;
     justify-content: center;
     align-items: center;
     background: #232E3C;
+    color: white;
 }
 #canvas{
     background: #232E3C;
@@ -49,4 +51,8 @@ body{
 #gameovermsg .msg{
     font-size: 50px;
  
+}
+footer{
+    position: fixed;
+    bottom: 10px;
 }
