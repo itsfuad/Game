@@ -11,8 +11,12 @@ body{
 }
 #canvas{
    /* background: #DCFFDE;*/
-    background: rgba(135, 206, 250, 0.562);
+    background-color: #88C2F6;
+    background-image: url('src/images.png');
+    background-blend-mode: normal;
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
     border-radius: 10px;
     border: 2px solid black;
 }

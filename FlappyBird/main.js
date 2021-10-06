@@ -171,7 +171,7 @@ function initScene(){
     //console.log("Init");
     isGameOver = false;
     score = 0;
-    bird.color = "white";
+    bird.color = "lightyellow";
     bird.position.x = 40;
     bird.position.y = 200;
     bird.h = 20;
@@ -180,12 +180,12 @@ function initScene(){
     bar.h = 200;
     bar.position.x = canvas.width;
     bar.speed.x = 3;
-    bar.color = "lime";
+    bar.color = "lightgreen";
 
     bar.h2 = 200;
     bar.position.x2 = canvas.width;
     bar.speed.x2 = 3;
-    bar.color2 = "lime";
+    bar.color2 = "lightgreen";
 
     bar.h2 = canvas.height - (bar.h + 200);
     bar.position.y2 = bar.position.y + bar.h + 200;
@@ -195,7 +195,7 @@ function initScene(){
 }
 
 const cloud = new Image();
-cloud.src = 'src/cloud-small.png';
+cloud.src = 'src/cloud-small-small.png';
 const cloud2 = new Image();
 cloud2.src = 'src/cloud-small-small.png';
 
@@ -209,8 +209,13 @@ const createCloud = () => {
         cx2 = canvas.width
         cy2 = Math.floor(Math.random()*canvas.height/2)+20;
     }
-    ctx.drawImage(cloud, cx1 -= 0.5, cy1);
-    ctx.drawImage(cloud2, cx2 -= 0.9, cy2);
+    if (!paused){
+        cx1 -= 0.5;
+        cx2 -= 0.9;
+    }
+  
+    ctx.drawImage(cloud, cx1, cy1);
+    ctx.drawImage(cloud2, cx2, cy2);
 }
 
 const gameLoop = () => {
