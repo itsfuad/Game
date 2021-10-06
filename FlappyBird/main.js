@@ -14,9 +14,9 @@ let deltatime, currentTime, lastTime = Date.now();
 let gravity = 3;
 let levels = 1;
 
-let jumpSound = new Audio("src/jump.wav");
-let levelUpsound = new Audio("src/levelup.wav");
-let bgsound = new Audio("src/bg.wav");
+//let jumpSound = new Audio("src/jump.wav");
+//let levelUpsound = new Audio("src/levelup.wav");
+//let bgsound = new Audio("src/bg.wav");
 
 class object {
     constructor(canvas){
