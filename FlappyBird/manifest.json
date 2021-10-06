@@ -1,23 +1,23 @@
 {
     "name": "Flappy Bird Game",
     "short_name": "Flappy Bird",
-    "start_url": "/",
+    "start_url": "./",
     "display": "standalone",
     "background_color": "#fff",
     "theme_color": "#87cefa",
-    "scope": "/",
+    "scope": "./",
     "description": "This is a Flappy Bird Game of the Classic game times.",
     "icons": [{
-      "src": "/src/main-icon.png",
+      "src": "src/main-icon.png",
       "sizes": "48x48",
       "type": "image/png"
     }, {
-      "src": "/src/main-icon.png",
+      "src": "src/main-icon.png",
       "sizes": "160x160",
       "type": "image/png",
       "purpose": "maskable"
     }, {
-        "src": "/src/splash.png",
+        "src": "src/splash.png",
         "sizes": "512x512",
         "type": "image/png",
         "purpose": "any"
