@@ -254,3 +254,9 @@ const play = ()=>{
     document.getElementById('gameovermsg').classList.remove('on');
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    if ('serviceWorker' in navigator){
+        navigator.serviceWorker.register('sw.js');
+    }
+});
+
