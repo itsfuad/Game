@@ -1,6 +1,9 @@
 body{
+    position: fixed;
     display: flex;
-    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
      -webkit-user-select: none;
@@ -14,4 +17,8 @@ body{
     background-color:#e9ffe1;
     border: 2px solid #c5ff9b;
     font-family: Arial, Helvetica, sans-serif;
+}
+footer {
+    position: fixed;
+    bottom: 10px;
 }
