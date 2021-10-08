@@ -1,22 +1,16 @@
-footer{
-position: fixed;
-bottom: 20px;
-left: 50%;
-transform: translateX(-50%);
-}
-
-#canvas {
-    /* background: #DCFFDE;*/
-    background-color:#A3FFA9;
-  
-    border: 2px solid #03FF14;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    font-family: Arial, Helvetica, sans-serif;
-    -webkit-user-select: none;
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+#canvas {
+    /* background: #DCFFDE;*/
+    background-color:#e9ffe1;
+    border: 2px solid #c5ff9b;
+    font-family: Arial, Helvetica, sans-serif;
 }
