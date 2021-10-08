@@ -42,11 +42,13 @@ function update(){
 
 function selfCollision(){
     for (let i = 0; i < positions.length; i++){
-        for (let j = 0; j < i; j++){
+        for (let j = 1; j < i; j++){
             if (positions[i].x == positions[j].x 
             && positions[i].y == positions[j].y ){
                 //gameover();
+               console.log(positions[i].x, ' = ', positions[j].x, '\n', positions[i].y, ' = ', positions[j].y);
                alert("Don't eat yourself");
+
                 gameover();
                 return;
             }
@@ -122,13 +124,13 @@ ctx.fillText(`High Score: ${highscore}`, 20, 50);
 
 const gameLoop = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    selfCollision();
+    update();
     draw();
     food();
-    update();
     ctx.fillStyle = 'black';
     ctx.fillText(`Score: ${positions.length - 3}`, 20, 20);
     ctx.fillText(`High Score: ${highscore}`, 20, 50);
-    selfCollision();
     //advanced();
 }
 
@@ -136,7 +138,7 @@ const gameLoop = () => {
 
 
 document.addEventListener('keydown', (evt)=>{
-    console.log(directionX, directionY);
+   // console.log(directionX, directionY);
     switch (evt.key) {
         case 'ArrowLeft':
             directionX = directionX == 20? 20 : -20;
