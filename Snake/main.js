@@ -105,7 +105,7 @@ function food(){
 
 function draw(){
     for (let i = positions.length - 1; i >= 0; i--){
-        ctx. fillStyle = (i == positions.length - 1) ? 'white' : 'black';
+        ctx. fillStyle = (i == positions.length - 1) ? 'orange' : 'black';
         ctx.fillRect(positions[i].x, positions[i].y, 20, 20);
     }
 }
