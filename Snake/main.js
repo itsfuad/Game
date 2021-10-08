@@ -90,7 +90,7 @@ function gen(){
         positions.forEach(element => {
             //console.log(element.x == ax);
             if (element.x == ax && element.y == ay){
-                positions.unshift({x: ax, y: ay});
+               // positions.unshift({x: ax, y: ay});
              //   console.log("inside snake");
                 gen();
             }
