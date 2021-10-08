@@ -1,3 +1,22 @@
-#canvas{
-    background: lightsteelblue;
+footer{
+position: fixed;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+}
+
+#canvas {
+    /* background: #DCFFDE;*/
+    background-color:#A3FFA9;
+  
+    border: 2px solid #03FF14;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
