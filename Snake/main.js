@@ -1,139 +1,141 @@
-const cvs = document.getElementById("canvas");
-const ctx = cvs.getContext("2d");
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
+let directionX = 0, directionY = 0;
+let size = 30;
+let positions = [{x: 90, y: 30}, {x: 60, y: 30}, {x: 30, y: 30}];
 
-cvs.width = 400;
-cvs.height = 400;
-
-let frames = 0;
-
-let foodEaten = false;
-
-const direction = {
-    current : 0,
-    idle : 0,
-    right : 1,
-    down : 2,
-    left : 3,
-    up : 4
-}
-
-document.addEventListener("keydown", function(evt){
-    switch(evt.keyCode){
-        case 37:
-            //move left
-            if(direction.current != direction.left && direction.current != direction.right) direction.current = direction.left;
-            break;
-        case 38:
-            //move up
-            if(direction.current != direction.up && direction.current != direction.down) direction.current = direction.up;
-            break;
-        case 39:
-            //move right
-            if(direction.current != direction.right && direction.current != direction.left) direction.current = direction.right;
-            break;
-        case 40:
-            //move down
-            if(direction.current != direction.down && direction.current != direction.up) direction.current = direction.down;
-            break;
+function update(){
+    if(positions[positions.length-1].x + size >= canvas.width && directionX == 30){
+        //positions[positions.length-1].x = 0;
+        //console.log("Right", positions[positions.length-1].x);
+       gameover();
     }
-
-});
-
-document.addEventListener('mousemove', (evt)=>{
-    console.log(evt);
-});
-
-function getDistance(pointX1, pointY1, pointX2, pointY2) {
-    let distanceX = pointX2 - pointX1;
-    let distanceY = pointY2 - pointY1;
-
-   return Math.sqrt(Math.pow(distanceX,2) + Math.pow(distanceY,2));
-}
-
-const food = {
-    x : cvs.width/4,
-    y : cvs.height/4,
-    r : 10,
-
-    draw : function(){
-        ctx.beginPath();
-        ctx.fillStyle = "red";
-        ctx.arc(this.x, this.y, this.r, 0 , 2*Math.PI);
-        ctx.fill();
-        ctx.closePath();
-    }  
-}
-const snake = {
-    radius : 10,
-    position : [{ x : cvs.width/2, y : cvs.height/2}],
-
-    draw : function() {
-        ctx.fillStyle = "black";
-        for( let i = 0; i< this.position.length; i++){
-            let p = this.position[i];
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, this.radius, 0, 2*Math.PI);
-            ctx.fill();
-            ctx.closePath();
+    else if(positions[positions.length-1].y + size >= canvas.height && directionY == 30){
+        //positions[positions.length-1].y = 0;
+        //console.log("Down", positions[positions.length-1].y);
+        gameover();
+    }
+    else if(positions[positions.length-1].x <= 0 && directionX == -30){
+        //console.log("Left", positions[positions.length-1].x);
+        //positions[positions.length-1].x = canvas.width - size;
+        gameover();
+    }
+    else if(positions[positions.length-1].y <= 0 && directionY == -30){
+        //console.log("Up", positions[positions.length-1].y);
+        //positions[positions.length-1].y = canvas.height - size;
+        gameover();
+    }
+    else{
+       // console.log('Q');
+       if(directionX != 0 || directionY != 0){
+           positions.push({x: positions[positions.length - 1].x, y: positions[positions.length - 1].y});
+           positions.shift();
+           console.log(positions.length);
         }
-    },
-
-    update : function() {
-        if(frames % 6 == 0){
-            if(foodEaten == true){
-
-                this.position.push({
-                    x : this.position[this.position.length -1].x,
-                    y : this.position[this.position.length -1].y                   
-                });
-                foodEaten = false;
-            }
-
-            if(this.position[0].x < 0 ) this.position[0].x = cvs.width - 10;
-            if(this.position[0].x > cvs.width ) this.position[0].x = 10;
-            if(this.position[0].y < 0 ) this.position[0].y = cvs.height - 10;
-            if(this.position[0].y > cvs.height ) this.position[0].y = 10;
-
-            for( let i = this.position.length -1; i > 0;  i--){
-                    if(this.position[0].x == this.position[i].x && this.position[0].y == this.position[i].y && this.position.length > 2) {
-                        this.position.splice(1);
-                        break;
-                    }
-                    this.position[i].x = this.position[i-1].x; 
-                    this.position[i].y = this.position[i-1].y; 
-                }
-            if(direction.current == direction.right) {
-
-                this.position[0].x += 20;
-            }
-            if(direction.current == direction.left) {
-                this.position[0].x -= 20;
-            }
-            if(direction.current == direction.up) {
-                this.position[0].y -= 20;
-            }
-            if(direction.current == direction.down) {
-                this.position[0].y += 20;
-            }; 
-            if(getDistance(food.x,food.y,this.position[0].x, this.position[0].y) <= 2*food.r){
-                food.x = Math.random() * cvs.width;
-                food.y = Math.random() * cvs.height;
-                foodEaten = true;
-            }
-        }
-
+        positions[positions.length - 1].x += directionX;
+        positions[positions.length - 1].y += directionY;
+       // positions.pop();
     }
 }
 
-function main() {
-
-    ctx.clearRect(0, 0, cvs.width, cvs.height);
-    snake.update();
-    snake.draw();
-    food.draw();
-    frames ++;
-    requestAnimationFrame(main);
-
+function selfCollision(){
+    for (let i = 0; i < positions.length; i++){
+        for (let j = 0; j < i; j++){
+            if (positions[i].x == positions[j].x 
+            && positions[i].y == positions[j].y ){
+                gameover();
+            }
+        }
+    }
 }
-requestAnimationFrame(main);
+
+function gameover(){
+    console.log("Game over");
+    location.reload();
+}
+
+
+let ax = 90, ay = 270;
+
+
+
+function gen(){
+    ax = Math.floor(Math.random()*canvas.width);
+    ay = Math.floor(Math.random()*canvas.width);
+    if (ax % 30 !== 0 || ay % 30 != 0){
+        gen();
+    }
+    else{
+        positions.forEach(element => {
+            //console.log(element.x == ax);
+            if (element.x == ax && element.y == ay){
+                positions.unshift({x: ax, y: ay});
+                console.log("inside snake");
+                gen();
+            }
+        });
+    }
+}
+
+function food(){
+    ctx.fillStyle = 'lightgreen';
+    positions.forEach(element => {
+        //console.log(element.x == ax);
+        if (element.x == ax && element.y == ay){
+            positions.unshift({x: ax, y: ay});
+            console.log("Eaten");
+            gen();
+        }
+    });
+    ctx.fillRect(ax, ay, 30, 30);
+}
+
+function draw(){
+    for (let i = positions.length - 1; i >= 0; i--){
+        ctx. fillStyle = (i == positions.length - 1) ? 'red' : 'black';
+        ctx.fillRect(positions[i].x, positions[i].y, 30, 30);
+    }
+}
+
+ctx.font = "16px Arial";
+update();
+ctx.fillStyle = 'black';
+ctx.fillText("Score: "+toString(positions.length - 3), 20, 20);
+const gameLoop = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    draw();
+    food();
+    update();
+    ctx.fillStyle = 'black';
+    ctx.fillText(`Score: ${positions.length - 3}`, 20, 20);
+    selfCollision();
+    //advanced();
+}
+
+setInterval(gameLoop, 200);
+
+
+document.addEventListener('keydown', (evt)=>{
+    console.log(directionX, directionY);
+    switch (evt.key) {
+        case 'ArrowLeft':
+            directionX = directionX == 30? 30 : -30;
+            directionY = 0;
+            break;
+        case 'ArrowRight':
+            directionX = directionX == -30? -30 : 30;
+            directionY = 0;
+            break;
+        case 'ArrowUp':
+            directionX = 0 ;
+            directionY = directionY == 30? 30 : -30;
+            break;
+        case 'ArrowDown':
+            directionX = 0 ;
+            directionY = directionY == -30? -30 : 30;
+            break;
+        default:
+            console.log('Key pressed: ', evt.key);
+    }
+});
