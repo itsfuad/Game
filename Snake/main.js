@@ -5,8 +5,11 @@ let directionX = 0, directionY = 0;
 let size = 20;
 let positions = [];
 let ax = 0, ay = 0;
+let upTimeId;
+let isGameOver = paused = false;
 let highscore = parseInt(localStorage.getItem('hsc')) || 0;
 function update(){
+    if(!paused){
     if(positions[positions.length-1].x + size >= canvas.width && directionX == 20){
         //positions[positions.length-1].x = 0;
         //console.log("Right", positions[positions.length-1].x);
@@ -38,6 +41,7 @@ function update(){
         positions[positions.length - 1].y += directionY;
        // positions.pop();
     }
+    }
 }
 
 function selfCollision(){
@@ -47,7 +51,7 @@ function selfCollision(){
             && positions[i].y == positions[j].y ){
                 //gameover();
                console.log(positions[i].x, ' = ', positions[j].x, '\n', positions[i].y, ' = ', positions[j].y);
-               alert("Don't eat yourself");
+               //alert("Don't eat yourself");
 
                 gameover();
                 return;
@@ -59,13 +63,17 @@ function selfCollision(){
 function gameover(){
  //   console.log("Game over");
    // location.reload();
-   alert("Game over.")
+   //alert("Game over.")
+    isGameOver = true;
+    clearInterval(upTimeId);
+    document.getElementById('gameovermsg').classList.add('on');
+
    if(positions.length-3 > highscore) {
        highscore = positions.length-3;
        localStorage.setItem('hsc', highscore);
    }
-   reset();
-   gen();
+ //  reset();
+ //  gen();
 }
 
 
@@ -111,6 +119,7 @@ function draw(){
 }
 
 function reset(){
+    isGameOver = false;
     directionX = 0, directionY = 0;
     size = 20;
     positions = [{x: 160, y: 180}, {x: 140, y: 180}, {x: 120, y: 180}];
@@ -122,19 +131,33 @@ ctx.fillStyle = 'black';
 ctx.fillText(`Score: ${positions.length - 3}`, 20, 20);
 ctx.fillText(`High Score: ${highscore}`, 20, 50);
 
+
 const gameLoop = () => {
+    if(isGameOver) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    food();
     selfCollision();
     update();
     draw();
-    food();
     ctx.fillStyle = 'black';
     ctx.fillText(`Score: ${positions.length - 3}`, 20, 20);
     ctx.fillText(`High Score: ${highscore}`, 20, 50);
     //advanced();
 }
 
-
+document.addEventListener("keydown", (e) => {
+    //console.log("Jumped");
+   
+    if (isGameOver == true && e.key == 'Enter') {
+        play();
+    }
+    else if (e.key == 'p' || e.key == 'P') {
+        paused = !paused;
+        pausebtn.innerText = pausebtn.innerText == 'Pause' ? 'Resume' : 'Pause';
+    }
+    //console.log("Normal");
+    // jumpSound.play();
+});
 
 
 document.addEventListener('keydown', (evt)=>{
@@ -211,12 +234,32 @@ function handleTouchMove(evt) {
     yDown = null;                                             
 };
 
+
+
+const pausebtn = document.getElementsByClassName('pause')[0];
+
+pausebtn.addEventListener('click', () => {
+    paused = !paused;
+    pausebtn.innerText = pausebtn.innerText == 'Pause' ? 'Resume' : 'Pause';
+});
+//bgsound.play();
+
+const playbtn = document.getElementById('play');
+
+const play = () => {
+    //console.log("Play");
+    reset();
+    gen();
+    upTimeId = setInterval(gameLoop, 100);
+    playbtn.style.display = 'none';
+    document.getElementById('gameovermsg').classList.remove('on');
+}
+
+
 document.addEventListener('DOMContentLoaded',() =>{
     if ('serviceWorker' in navigator){
         navigator.serviceWorker.register('sw.js');
     }
-    alert('Use finger gestures or Keyboard Arrows');
-    reset();
-    gen();
-    setInterval(gameLoop, 100);
+   // alert('Use finger gestures or Keyboard Arrows');
+
 });
