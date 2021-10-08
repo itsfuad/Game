@@ -154,7 +154,7 @@ document.addEventListener("keydown", async (e) => {
     //console.log("Normal");
    // jumpSound.play();
 });
-document.addEventListener("click", async () => {
+canvas.addEventListener("click", async () => {
     //console.log("Jumped");
     jump = true;
     await sleep(120);
