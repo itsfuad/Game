@@ -31,17 +31,7 @@ body{
 .pause:hover{
     cursor: pointer;
 }
-#play{
-    font-size: 50px;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-}
-#play:hover{
-    cursor: pointer;
-}
+
 #gameovermsg{
     display: none;
 }

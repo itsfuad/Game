@@ -128,9 +128,6 @@ function reset(){
 
 ctx.font = "16px Arial";
 ctx.fillStyle = 'black';
-ctx.fillText(`Score: ${positions.length - 3}`, 20, 20);
-ctx.fillText(`High Score: ${highscore}`, 20, 50);
-
 
 const gameLoop = () => {
     if(isGameOver) return;
@@ -244,14 +241,12 @@ pausebtn.addEventListener('click', () => {
 });
 //bgsound.play();
 
-const playbtn = document.getElementById('play');
 
 const play = () => {
     //console.log("Play");
     reset();
     gen();
     upTimeId = setInterval(gameLoop, 100);
-    playbtn.style.display = 'none';
     document.getElementById('gameovermsg').classList.remove('on');
 }
 
@@ -261,5 +256,5 @@ document.addEventListener('DOMContentLoaded',() =>{
         navigator.serviceWorker.register('sw.js');
     }
    // alert('Use finger gestures or Keyboard Arrows');
-
+   play();
 });
