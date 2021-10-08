@@ -212,8 +212,11 @@ function handleTouchMove(evt) {
 };
 
 document.addEventListener('DOMContentLoaded',() =>{
+    if ('serviceWorker' in navigator){
+        navigator.serviceWorker.register('sw.js');
+    }
     alert('Use finger gestures or Keyboard Arrows');
- reset();
- gen();
- setInterval(gameLoop, 100);
+    reset();
+    gen();
+    setInterval(gameLoop, 100);
 });
