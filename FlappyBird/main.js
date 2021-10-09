@@ -149,7 +149,7 @@ document.addEventListener("keydown", async (e) => {
     }
     else if(e.key == 'p' || e.key == 'P'){
           paused = !paused;
-          pausebtn.innerText = pausebtn.innerText == 'Pause' ? 'Resume' : 'Pause';
+          pausebtn.innerText = pausebtn.innerText == '⏸️' ? '▶️' : '⏸️';
     }
     //console.log("Normal");
    // jumpSound.play();
@@ -245,7 +245,7 @@ const pausebtn = document.getElementsByClassName('pause')[0];
 
 pausebtn.addEventListener('click',()=>{
     paused = !paused;
-    pausebtn.innerText = pausebtn.innerText == 'Pause'? 'Resume':'Pause';
+    pausebtn.innerText = pausebtn.innerText == '⏸️'? '▶️':'⏸️';
 });
 //bgsound.play();
 
