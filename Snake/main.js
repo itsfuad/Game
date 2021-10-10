@@ -159,6 +159,7 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener('keydown', (evt)=>{
    // console.log(directionX, directionY);
+   if(!paused){
     switch (evt.key) {
         case 'ArrowLeft':
             directionX = directionX == 20? 20 : -20;
@@ -179,6 +180,7 @@ document.addEventListener('keydown', (evt)=>{
         default:
             console.log('Key pressed: ', evt.key);
     }
+   }
 });
 
 document.addEventListener('touchstart', handleTouchStart, false);        
@@ -208,7 +210,8 @@ function handleTouchMove(evt) {
 
     var xDiff = xDown - xUp;
     var yDiff = yDown - yUp;
-                                                                         
+    
+    if(!paused){                                              
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
         if ( xDiff > 0 ) {
             directionX = directionX == 20? 20 : -20;
@@ -225,6 +228,7 @@ function handleTouchMove(evt) {
             directionX = 0 ;
             directionY = directionY == -20? -20 : 20;
         }                                                                 
+    }
     }
     /* reset values */
     xDown = null;
