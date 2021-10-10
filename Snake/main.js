@@ -99,7 +99,7 @@ function gen(){
 }
 
 function food(){
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = '#fcd200';
     positions.forEach(element => {
         //console.log(element.x == ax);
         if (element.x == ax && element.y == ay){
@@ -113,7 +113,7 @@ function food(){
 
 function draw(){
     for (let i = positions.length - 1; i >= 0; i--){
-        ctx. fillStyle = (i == positions.length - 1) ? 'orange' : 'black';
+        ctx. fillStyle = (i == positions.length - 1) ? '#54ffa4' : '#b7f7d5';
         ctx.fillRect(positions[i].x, positions[i].y, 20, 20);
     }
 }
@@ -263,4 +263,3 @@ document.addEventListener('DOMContentLoaded',() =>{
    
     play();
 });
-
