@@ -256,10 +256,7 @@ document.addEventListener('DOMContentLoaded',() =>{
         navigator.serviceWorker.register('sw.js');
     }
    // alert('Use finger gestures or Keyboard Arrows');
-   pausebtn.style.top = canvas.offsetTop + 'px';
+   
     play();
 });
 
-window.addEventListener('resize', ()=>{
-    pausebtn.style.top = canvas.offsetTop + 'px';
-});

@@ -260,12 +260,7 @@ const play = ()=>{
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    pausebtn.style.top = canvas.offsetTop + 'px';
     if ('serviceWorker' in navigator){
         navigator.serviceWorker.register('sw.js');
     }
-});
-
-window.addEventListener('resize', ()=>{
-    pausebtn.style.top = canvas.offsetTop + 'px';
 });
