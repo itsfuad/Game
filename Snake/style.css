@@ -17,7 +17,8 @@ body{
 #canvas {
     /* background: #DCFFDE;*/
     background-color:#e9ffe1;
-    border: 2px solid #c5ff9b;
+    border: 10px solid #c5ff9b;
+    border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .pause{
