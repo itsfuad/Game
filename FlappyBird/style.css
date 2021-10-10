@@ -30,8 +30,6 @@ body{
     position: fixed;
     color: black;
     font-size: 20px;
-    top: 10px;
-    left: 10px;
     padding: 10px;
     
     border-radius: 10px;
@@ -72,9 +70,4 @@ body{
 }
 #gameovermsg .reload:hover{
     cursor: pointer;
-}
-
-footer{
-    position: fixed;
-    bottom: 10px;
 }
