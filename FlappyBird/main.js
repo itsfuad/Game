@@ -11,7 +11,7 @@ let paused = false;
 let deltatime, currentTime, lastTime = Date.now();
 let gravity = 3;
 let levels = 1;
-
+let frame;
 //let jumpSound = new Audio("src/jump.wav");
 //let levelUpsound = new Audio("src/levelup.wav");
 //let bgsound = new Audio("src/bg.wav");
@@ -236,7 +236,7 @@ const gameLoop = () => {
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 20);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 40);
     //console.log("GameLoop");
-    requestAnimationFrame(gameLoop);
+    frame = requestAnimationFrame(gameLoop);
 }
 
 const pausebtn = document.getElementsByClassName('pause')[0];
@@ -251,6 +251,8 @@ const playbtn = document.getElementById('play');
 
 const play = ()=>{
     //console.log("Play");
+    cancelAnimationFrame(frame);
+    paused = false;
     initScene();
     gameLoop();
     playbtn.style.display = 'none';
@@ -261,4 +263,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if ('serviceWorker' in navigator){
         navigator.serviceWorker.register('sw.js');
     }
+    paused = true;
+    initScene();
+    gameLoop();
 });

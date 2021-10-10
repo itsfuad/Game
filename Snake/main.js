@@ -122,7 +122,7 @@ function reset(){
     isGameOver = false;
     directionX = 0, directionY = 0;
     size = 20;
-    positions = [{x: 160, y: 180}, {x: 140, y: 180}, {x: 120, y: 180}];
+    positions = [{x: 220, y: 240}, {x: 200, y: 240}, {x: 180, y: 240}];
     ax = 0, ay = 0;
 }
 

@@ -45,12 +45,12 @@ body{
     cursor: pointer;
 }
 #play{
-    font-size: 50px;
+    font-size: 30px;
     position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;
+    color: white;
 }
 #play:hover{
     cursor: pointer;
