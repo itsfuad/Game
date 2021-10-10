@@ -1,8 +1,41 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-sw.js');
+// sw.js
 
-workbox.routing.registerRoute(
-	({request}) => request.destination === 'image',
-	new workbox.strategies.NetworkFirst()
-);
+const assets = [
+    "/style.css",
+    "/index.html",
+    "/offline.html",
+	"main.js",
+    "/"
+];
 
-console.log("activated");
+let cache_name = "SimiCart"; // The string used to identify our cache
+self.addEventListener("install", event => {
+    console.log("installing...");
+    event.waitUntil(
+        caches.open(cache_name).then(cache => {
+                return cache.addAll(assets);
+            }).catch(err => console.log(err))
+    );
+});
+
+self.addEventListener("fetch", event => {
+    if (event.request.url === "https://fuadgames.netlify.app/Snake") {
+        // or whatever your app's URL is
+        event.respondWith(
+            fetch(event.request).catch(err =>
+                self.cache.open(cache_name).then(cache => cache.match("/offline.html"))
+            )
+        );
+    } else {
+        event.respondWith(
+            fetch(event.request).catch(err =>
+                caches.match(event.request).then(response => response)
+            )
+        );
+    }
+});
+
+
+
+
+console.log("sw activated");

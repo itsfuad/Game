@@ -256,9 +256,13 @@ const play = () => {
 
 
 document.addEventListener('DOMContentLoaded',() =>{
-    if ('serviceWorker' in navigator){
-        navigator.serviceWorker.register('sw.js');
+    // index.js
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+            .register("sw.js")
+            .then(() => console.log("registered service worker!"));
     }
+// the rest of your page's code...
    // alert('Use finger gestures or Keyboard Arrows');
    
     play();
