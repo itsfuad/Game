@@ -180,8 +180,7 @@ function initScene(){
     bar.speed.x = 3;
     bar.color = "lightgreen";
 
-    bar.h2 = 200;
-    bar.position.x2 = canvas.width;
+    
     bar.speed.x2 = 3;
     bar.color2 = "lightgreen";
 
