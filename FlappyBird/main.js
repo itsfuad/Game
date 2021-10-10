@@ -4,8 +4,6 @@ const ctx = canvas.getContext("2d");
 ctx.font =  "16px Arial";
 
 let score = 0, highscore = parseInt(window.localStorage.getItem('itf_hgs')) || 0;
-const Bird = new Image();  
-Bird.src = "src/red.png";
 
 let isGameOver = false;
 let jump = false;
