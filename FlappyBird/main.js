@@ -139,11 +139,14 @@ const gameOver = () => {
 
 document.addEventListener("keydown", async (e) => {
     //console.log("Jumped");
-    jump = true;
-    await sleep(120);
-    jump = false;
+
     if (isGameOver == true && e.key == 'Enter'){
         play();
+    }
+    else if (e.key == ' '){
+        jump = true;
+        await sleep(120);
+        jump = false;
     }
     else if(e.key == 'p' || e.key == 'P'){
           paused = !paused;
