@@ -99,7 +99,7 @@ function gen(){
 }
 
 function food(){
-    ctx.fillStyle = '#fcd200';
+    ctx.fillStyle = '#ffb18f';
     positions.forEach(element => {
         //console.log(element.x == ax);
         if (element.x == ax && element.y == ay){
@@ -113,7 +113,7 @@ function food(){
 
 function draw(){
     for (let i = positions.length - 1; i >= 0; i--){
-        ctx. fillStyle = (i == positions.length - 1) ? '#54ffa4' : '#b7f7d5';
+        ctx. fillStyle = (i == positions.length - 1) ? '#39ffe5' : '#adf7ea';
         ctx.fillRect(positions[i].x, positions[i].y, 20, 20);
     }
 }
