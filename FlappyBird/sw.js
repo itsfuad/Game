@@ -1,12 +1,42 @@
-!function(){"use strict";try{self["workbox:sw:6.2.0"]&&_()}catch(t){}const t={backgroundSync:"background-sync",broadcastUpdate:"broadcast-update",cacheableResponse:"cacheable-response",core:"core",expiration:"expiration",googleAnalytics:"offline-ga",navigationPreload:"navigation-preload",precaching:"precaching",rangeRequests:"range-requests",routing:"routing",strategies:"strategies",streams:"streams",recipes:"recipes"};self.workbox=new class{constructor(){return this.v={},this.Pt={debug:"localhost"===self.location.hostname,modulePathPrefix:null,modulePathCb:null},this.$t=this.Pt.debug?"dev":"prod",this.Ct=!1,new Proxy(this,{get(e,s){if(e[s])return e[s];const o=t[s];return o&&e.loadModule("workbox-"+o),e[s]}})}setConfig(t={}){if(this.Ct)throw new Error("Config must be set before accessing workbox.* modules");Object.assign(this.Pt,t),this.$t=this.Pt.debug?"dev":"prod"}loadModule(t){const e=this.jt(t);try{importScripts(e),this.Ct=!0}catch(s){throw console.error(`Unable to import module '${t}' from '${e}'.`),s}}jt(t){if(this.Pt.modulePathCb)return this.Pt.modulePathCb(t,this.Pt.debug);let e=["https://storage.googleapis.com/workbox-cdn/releases/6.2.0"];const s=`${t}.${this.$t}.js`,o=this.Pt.modulePathPrefix;return o&&(e=o.split("/"),""===e[e.length-1]&&e.splice(e.length-1,1)),e.push(s),e.join("/")}}}();
+const cacheName = 'v2';
+//Call Install Event
+self.addEventListener('install', (e) => {
+	console.log('Service Worker: Installed');
+});
+
+//Call Activate Event
+self.addEventListener('activate', (e) => {
+	console.log('Service Worker: Activated');
+
+	//Remove Old Caches
+	e.waitUntil(
+		caches.keys().then(cacheNames => {
+			return Promise.all(
+				cacheNames.map(cache => {
+					if (cache !== cacheName){
+						console.log('Service Worker: Clearing Old cache');
+						return caches.delete(cache);
+					}
+				})
+			);
+		})
+	);
+});
 
 
-workbox.routing.registerRoute(
-	({request}) => request.destination === 'image' ||
-	request.destination === 'script' ||
-	request.destination === 'style',
-	new workbox.strategies.NetworkFirst()
-);
+//Call fetch event
+self.addEventListener('fetch', e=> {
+	console.log('Service Worker: Fetching');
+	e.respondWith(
+		fetch(e.request)
+		.then(res => {
+			const resClone = res.clone();
+			caches.open(cacheName)
+			.then(cache => {
+				cache.put(e.request, resClone);
+			});
+			return res;
+		}).catch(err => caches.match(e.request).then(res => res))
+	);
+});
 
-
-console.log("activated");

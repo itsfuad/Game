@@ -261,10 +261,18 @@ const play = ()=>{
     document.getElementById('gameovermsg').classList.remove('on');
 }
 
+if ('serviceWorker' in navigator){
+    
+    window.addEventListener('load', () => {
+        navigator.serviceWorker
+        .register('sw.js')
+        .then(reg => console.log("Service Worker Registered"))
+        .catch(err => console.log(`Service Worker: Error ${err}`));
+    });
+
+}
+
 document.addEventListener('DOMContentLoaded', (event) => {
-    if ('serviceWorker' in navigator){
-        navigator.serviceWorker.register('sw.js');
-    }
     paused = true;
     initScene();
     gameLoop();
