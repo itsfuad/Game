@@ -254,16 +254,16 @@ const play = () => {
     document.getElementById('gameovermsg').classList.remove('on');
 }
 
+if ('serviceWorker' in navigator){
+    
+    window.addEventListener('load', () => {
+        navigator.serviceWorker
+        .register('sw-snake.js')
+        .then(reg => console.log("Service Worker Registered"))
+        .catch(err => console.log(`Service Worker: Error ${err}`));
+    });
+}
 
 document.addEventListener('DOMContentLoaded',() =>{
-    // index.js
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-            .register("sw.js")
-            .then(() => console.log("registered service worker!"));
-    }
-// the rest of your page's code...
-   // alert('Use finger gestures or Keyboard Arrows');
-   
     play();
 });
