@@ -7,7 +7,10 @@ let positions = [];
 let ax = 0, ay = 0;
 let upTimeId;
 let isGameOver = paused = false;
+let speed = 200; 
 let highscore = parseInt(localStorage.getItem('hsc')) || 0;
+
+
 function update(){
     if(!paused){
     if(positions[positions.length-1].x + size >= canvas.width && directionX == 20){
@@ -65,7 +68,7 @@ function gameover(){
    // location.reload();
    //alert("Game over.")
     isGameOver = true;
-    clearInterval(upTimeId);
+   // clearInterval(upTimeId);
     document.getElementById('gameovermsg').classList.add('on');
 
    if(positions.length-3 > highscore) {
@@ -106,6 +109,11 @@ function food(){
             positions.unshift({x: ax, y: ay});
           //  console.log("Eaten");
             gen();
+            if(speed <= 100){
+                speed = 100;
+            }else{
+            speed -= 2;
+            }
         }
     });
     ctx.fillRect(ax, ay, 20, 20);
@@ -124,12 +132,18 @@ function reset(){
     size = 20;
     positions = [{x: 220, y: 240}, {x: 200, y: 240}, {x: 180, y: 240}];
     ax = 0, ay = 0;
+    speed = 200;
 }
 
 ctx.font = "16px Arial";
 ctx.fillStyle = 'black';
 
-const gameLoop = () => {
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const gameLoop = async () => {
+    
     if(isGameOver) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     food();
@@ -140,6 +154,8 @@ const gameLoop = () => {
     ctx.fillText(`Score: ${positions.length - 3}`, 20, 20);
     ctx.fillText(`High Score: ${highscore}`, 20, 50);
     //advanced();
+    await sleep(speed);
+    gameLoop();
 }
 
 document.addEventListener("keydown", (e) => {
@@ -250,7 +266,8 @@ const play = () => {
     //console.log("Play");
     reset();
     gen();
-    upTimeId = setInterval(gameLoop, 100);
+   // upTimeId = setInterval(gameLoop, 100);
+   gameLoop();
     document.getElementById('gameovermsg').classList.remove('on');
 }
 
