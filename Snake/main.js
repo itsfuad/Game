@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+
 let directionX = 0, directionY = 0;
 let size = 20;
 let positions = [];
