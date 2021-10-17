@@ -3,8 +3,8 @@
     "short_name": "Flappy Bird",
     "start_url": "./",
     "display": "standalone",
-    "background_color": "#fff",
-    "theme_color": "#87cefa",
+    "background_color": "#f5faff",
+    "theme_color": "#f5faff",
     "scope": "./",
     "description": "This is a Flappy Bird Game of the Classic game times.",
     "icons": [
