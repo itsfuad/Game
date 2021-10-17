@@ -44,9 +44,9 @@ body {
 }
 #canvas {
   position: absolute;
-  height: 350px;
-  width: 350px;
-  background-color: #23262e;
+  min-height: max-content;
+  min-width: max-content;
+  background-color: #EBEBEB;
   display: -ms-grid;
   display: grid;
     -webkit-box-pack: center;
@@ -55,20 +55,19 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-  grid-gap: 8px;
+  grid-gap: 2px;
       grid-template-columns: repeat(3, 1fr);
-  font-size: 160px;
+  font-size: 80px;
   z-index: 2;
+  overflow: hidden;
 }
 
 #canvas .cell {
   font-family: 'Courier New', Courier, monospace;
   position: relative;
-  border-radius: 10px;
-  background-color: #191d29;
   -webkit-transition: 300ms;
   transition: 300ms;
-  overflow: hidden;
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -81,11 +80,11 @@ body {
           align-items: center;
   height: 120px;
   width: 120px;
+  
+  background: #23262e;
 }
 
 #canvas .cell:hover {
-  -webkit-transform: scale(1.02);
-          transform: scale(1.02);
   cursor: pointer;
 }
 
