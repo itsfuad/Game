@@ -9,8 +9,8 @@ let pc_turn = button ? '○' : '×';
 let played_tiles = 0;
 //alert(`${turn} is your symbol`);
 
-function init(){
-    console.log(`${turn} is your symbol`);
+
+console.log(`${turn} is your symbol`);
 
 if (!button){
     computer();
@@ -102,17 +102,12 @@ function win(){
     }
 }
 
-}
-
 function reset(){
     cells.forEach(cell => {
         cell.innerText = '';
     });
     message.classList.remove('active');
-    init();
 }
 close.addEventListener('click', ()=>{
     reset();
 })
-
-init();
