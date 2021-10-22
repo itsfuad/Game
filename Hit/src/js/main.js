@@ -11,6 +11,7 @@ let score = 0, highscore = localStorage.getItem('hit_hsc')||0;
 let timeT = 60;
 let over = false;
 let free = true;
+let arr = 0;
 const doge = new Image();
 doge.src = 'src/images/doge.png';
 
@@ -22,8 +23,7 @@ function sleep(ms) {
 const drawDoge = () => {
     x = Math.floor(Math.random()*(canvas.width - 55));
     y = Math.floor(Math.random()*(canvas.height - 47));
-    ctx.drawImage(doge, 0, 0, 55, 47, x, y, 55, 47);
-    
+    ctx.drawImage(doge, 0, arr, 55, 47, x, y, 55, 47);
     
    // ctx.drawImage(doge, 0, 0);
 }
@@ -36,11 +36,13 @@ canvas.addEventListener('touchstart', async (evt) => {
     && (ty >= y && ty <= y + 47)){
   //  ctx.clearRect(0,0,canvas.width, canvas.height);
       if (free){
-      ctx.drawImage(doge, 0, 88, 55, 47, x, y, 55, 47);
+          arr = 88;
+      ctx.drawImage(doge, 0, arr, 55, 47, x, y, 55, 47);
       score++;
       free = false;
-      await sleep(800);
+      await sleep(300);
       free = true;
+      arr = 0;
       }
     
     }
