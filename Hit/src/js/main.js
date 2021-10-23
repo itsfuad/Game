@@ -22,7 +22,7 @@ function sleep(ms) {
 
 const drawDoge = () => {
     x = Math.floor(Math.random()*(canvas.width - 55));
-    y = Math.floor(Math.random()*(canvas.height - 47));
+    y = Math.floor(Math.random()*(canvas.height - 47) + 50);
     ctx.drawImage(doge, 0, arr, 55, 47, x, y, 55, 47);
     
    // ctx.drawImage(doge, 0, 0);
@@ -76,10 +76,12 @@ const gameLoop = async () => {
        
     
     ctx.clearRect(0,0,canvas.width, canvas.height);
+    ctx.textAlign = "start";
     ctx.fillStyle = 'black';
     ctx.fillText(`Score: ${score}`, 10, 20);
     ctx.fillText(`High Score: ${highscore}`, 10, 40);
-    ctx.fillText(`Time remaining: ${timeT} seconds`, canvas.width/2, 30);
+    ctx.textAlign = "end";
+    ctx.fillText(`Time remaining: ${timeT} seconds`, canvas.width - 10, 30);
     drawDoge();
     await sleep(500);
     //timer();
